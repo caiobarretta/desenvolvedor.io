@@ -19,9 +19,11 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Pagamentos", "Pagamentos", 
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Vendas", "Vendas", "{F3119DB6-14D6-4708-B87F-9F803E3C1D58}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "NerdStore.Catalogo.Domain", "src\NerdStore.Catalogo.Domain\NerdStore.Catalogo.Domain.csproj", "{053E84AF-BD4B-4C0B-99ED-1A4B2F76956A}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "NerdStore.Catalogo.Domain", "src\NerdStore.Catalogo.Domain\NerdStore.Catalogo.Domain.csproj", "{053E84AF-BD4B-4C0B-99ED-1A4B2F76956A}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "NerdStore.Core", "src\NerdStore.Core\NerdStore.Core.csproj", "{0E088976-9905-4FCE-BA52-838842636EEE}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "NerdStore.Core", "src\NerdStore.Core\NerdStore.Core.csproj", "{0E088976-9905-4FCE-BA52-838842636EEE}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "NerdStore.Catalogo.Domain.Tests", "tests\NerdStore.Catalogo.Domain.Tests\NerdStore.Catalogo.Domain.Tests.csproj", "{45B4040E-1DC2-464F-B6B3-B0FCF8C356CF}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -37,6 +39,10 @@ Global
 		{0E088976-9905-4FCE-BA52-838842636EEE}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{0E088976-9905-4FCE-BA52-838842636EEE}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{0E088976-9905-4FCE-BA52-838842636EEE}.Release|Any CPU.Build.0 = Release|Any CPU
+		{45B4040E-1DC2-464F-B6B3-B0FCF8C356CF}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{45B4040E-1DC2-464F-B6B3-B0FCF8C356CF}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{45B4040E-1DC2-464F-B6B3-B0FCF8C356CF}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{45B4040E-1DC2-464F-B6B3-B0FCF8C356CF}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -50,6 +56,7 @@ Global
 		{F3119DB6-14D6-4708-B87F-9F803E3C1D58} = {B06B5AA4-D4CB-4D34-8A3D-25E067C70684}
 		{053E84AF-BD4B-4C0B-99ED-1A4B2F76956A} = {560AE676-1E33-4EB7-AEF1-E83960519F5D}
 		{0E088976-9905-4FCE-BA52-838842636EEE} = {B1E51811-FD7E-4BC9-ABDA-3769843C2EA1}
+		{45B4040E-1DC2-464F-B6B3-B0FCF8C356CF} = {560AE676-1E33-4EB7-AEF1-E83960519F5D}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {ADB14E18-9BE5-41AC-9585-207DB611F406}
