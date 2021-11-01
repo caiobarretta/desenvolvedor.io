@@ -1,8 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace NerdStore.Core.DomainObjects
 {
@@ -10,8 +6,10 @@ namespace NerdStore.Core.DomainObjects
     {
         public Guid Id { get; set; }
 
-        protected Entity() => Id = Guid.NewGuid();
-
+        protected Entity()
+        {
+            Id = Guid.NewGuid();
+        }
 
         public override bool Equals(object obj)
         {
@@ -25,18 +23,28 @@ namespace NerdStore.Core.DomainObjects
 
         public static bool operator ==(Entity a, Entity b)
         {
-            if (ReferenceEquals(a, null) && ReferenceEquals(b, null)) return true;
-            if (ReferenceEquals(a, null) || ReferenceEquals(b, null)) return true;
+            if (ReferenceEquals(a, null) && ReferenceEquals(b, null))
+                return true;
+
+            if (ReferenceEquals(a, null) || ReferenceEquals(b, null))
+                return false;
 
             return a.Equals(b);
         }
 
-        public static bool operator !=(Entity a, Entity b) => !(a == b);
+        public static bool operator !=(Entity a, Entity b)
+        {
+            return !(a == b);
+        }
 
-        public override int GetHashCode() => (GetType().GetHashCode() * 907) + Id.GetHashCode();
+        public override int GetHashCode()
+        {
+            return (GetType().GetHashCode() * 907) + Id.GetHashCode();
+        }
 
-        public override string ToString() => $"{GetType().Name} [Id= {Id}]";
-
-
+        public override string ToString()
+        {
+            return $"{GetType().Name} [Id={Id}]";
+        }
     }
 }
