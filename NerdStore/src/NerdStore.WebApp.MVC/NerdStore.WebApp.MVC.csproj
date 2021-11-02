@@ -27,4 +27,9 @@
     <ProjectReference Include="..\NerdStore.Vendas.Application\NerdStore.Vendas.Application.csproj" />
   </ItemGroup>
 
+
+  <ItemGroup>
+    <Folder Include="Views\Shared\Components\Summary\" />
+  </ItemGroup>
+
 </Project>
