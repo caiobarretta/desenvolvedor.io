@@ -1,11 +1,9 @@
-﻿using AutoMapper;
+﻿using System;
+using System.Collections.Generic;
+using System.Text;
+using AutoMapper;
 using NerdStore.Catalogo.Application.ViewModels;
 using NerdStore.Catalogo.Domain;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace NerdStore.Catalogo.Application.AutoMapper
 {
@@ -21,6 +19,4 @@ namespace NerdStore.Catalogo.Application.AutoMapper
             CreateMap<Categoria, CategoriaViewModel>();
         }
     }
-
-
 }

@@ -1,12 +1,8 @@
-﻿using MediatR;
+﻿using System.Threading;
+using System.Threading.Tasks;
+using MediatR;
 using NerdStore.Core.Communication.Mediator;
 using NerdStore.Core.Messages.CommonMessages.IntegrationEvents;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading;
-using System.Threading.Tasks;
 
 namespace NerdStore.Catalogo.Domain.Events
 {
@@ -19,18 +15,20 @@ namespace NerdStore.Catalogo.Domain.Events
         private readonly IEstoqueService _estoqueService;
         private readonly IMediatorHandler _mediatorHandler;
 
-        public ProdutoEventHandler(IProdutoRepository produtoRepository, IEstoqueService estoqueService, IMediatorHandler mediatorHandler)
+        public ProdutoEventHandler(IProdutoRepository produtoRepository, 
+                                   IEstoqueService estoqueService, 
+                                   IMediatorHandler mediatorHandler)
         {
             _produtoRepository = produtoRepository;
             _estoqueService = estoqueService;
             _mediatorHandler = mediatorHandler;
         }
-        public async Task Handle(ProdutoAbaixoEstoqueEvent notification, CancellationToken cancellationToken)
+
+        public async Task Handle(ProdutoAbaixoEstoqueEvent mensagem, CancellationToken cancellationToken)
         {
-            var produto = await _produtoRepository.ObterPorId(notification.AggregateId);
+            var produto = await _produtoRepository.ObterPorId(mensagem.AggregateId);
 
-            //Enviar um email para aquisicao de mais produtos.
-
+            // Enviar um email para aquisicao de mais produtos.
         }
 
         public async Task Handle(PedidoIniciadoEvent message, CancellationToken cancellationToken)

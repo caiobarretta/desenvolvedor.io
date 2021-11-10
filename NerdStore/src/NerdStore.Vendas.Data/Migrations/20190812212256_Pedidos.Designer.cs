@@ -10,8 +10,8 @@ using NerdStore.Vendas.Data;
 namespace NerdStore.Vendas.Data.Migrations
 {
     [DbContext(typeof(VendasContext))]
-    [Migration("20211102151322_Initial")]
-    partial class Initial
+    [Migration("20190812212256_Pedidos")]
+    partial class Pedidos
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {

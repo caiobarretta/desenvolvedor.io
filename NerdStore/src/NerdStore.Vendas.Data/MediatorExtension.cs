@@ -1,10 +1,7 @@
-﻿using NerdStore.Core.Communication.Mediator;
-using NerdStore.Core.DomainObjects;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
+﻿using System.Linq;
 using System.Threading.Tasks;
+using NerdStore.Core.Communication.Mediator;
+using NerdStore.Core.DomainObjects;
 
 namespace NerdStore.Vendas.Data
 {

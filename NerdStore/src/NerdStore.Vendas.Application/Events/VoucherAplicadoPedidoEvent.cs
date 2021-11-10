@@ -1,9 +1,5 @@
-﻿using NerdStore.Core.Messages;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using System;
+using NerdStore.Core.Messages;
 
 namespace NerdStore.Vendas.Application.Events
 {
@@ -13,9 +9,9 @@ namespace NerdStore.Vendas.Application.Events
         public Guid PedidoId { get; private set; }
         public Guid VoucherId { get; private set; }
 
-
         public VoucherAplicadoPedidoEvent(Guid clienteId, Guid pedidoId, Guid voucherId)
         {
+            AggregateId = pedidoId;
             ClienteId = clienteId;
             PedidoId = pedidoId;
             VoucherId = voucherId;

@@ -1,9 +1,10 @@
-﻿using NerdStore.Core.Messages;
-using System;
+﻿using System;
+using FluentValidation;
+using NerdStore.Core.Messages;
 
 namespace NerdStore.Vendas.Application.Commands
 {
-    public partial class RemoverItemPedidoCommand : Command
+    public class RemoverItemPedidoCommand : Command
     {
         public Guid ClienteId { get; private set; }
         public Guid ProdutoId { get; private set; }
@@ -13,10 +14,27 @@ namespace NerdStore.Vendas.Application.Commands
             ClienteId = clienteId;
             ProdutoId = produtoId;
         }
+
         public override bool EhValido()
         {
             ValidationResult = new RemoverItemPedidoValidation().Validate(this);
             return ValidationResult.IsValid;
         }
     }
+
+    public class RemoverItemPedidoValidation : AbstractValidator<RemoverItemPedidoCommand>
+    {
+        public RemoverItemPedidoValidation()
+        {
+            RuleFor(c => c.ClienteId)
+                .NotEqual(Guid.Empty)
+                .WithMessage("Id do cliente inválido");
+
+            RuleFor(c => c.ProdutoId)
+                .NotEqual(Guid.Empty)
+                .WithMessage("Id do produto inválido");
+        }
+    }
+
+    
 }

@@ -1,10 +1,7 @@
-﻿using Microsoft.AspNetCore.Mvc;
-using NerdStore.Vendas.Application.Queries;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
+﻿using System;
 using System.Threading.Tasks;
+using Microsoft.AspNetCore.Mvc;
+using NerdStore.Vendas.Application.Queries;
 
 namespace NerdStore.WebApp.MVC.Extensions
 {

@@ -1,9 +1,5 @@
-﻿using NerdStore.Core.DomainObjects.DTO;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using System;
+using NerdStore.Core.DomainObjects.DTO;
 
 namespace NerdStore.Core.Messages.CommonMessages.IntegrationEvents
 {

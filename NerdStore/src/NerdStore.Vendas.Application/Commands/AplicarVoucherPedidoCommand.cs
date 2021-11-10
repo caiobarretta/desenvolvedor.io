@@ -1,9 +1,10 @@
-﻿using NerdStore.Core.Messages;
-using System;
+﻿using System;
+using FluentValidation;
+using NerdStore.Core.Messages;
 
 namespace NerdStore.Vendas.Application.Commands
 {
-    public partial class AplicarVoucherPedidoCommand : Command
+    public class AplicarVoucherPedidoCommand : Command
     {
         public Guid ClienteId { get; private set; }
         public string CodigoVoucher { get; private set; }
@@ -13,10 +14,25 @@ namespace NerdStore.Vendas.Application.Commands
             ClienteId = clienteId;
             CodigoVoucher = codigoVoucher;
         }
+
         public override bool EhValido()
         {
             ValidationResult = new AplicarVoucherPedidoValidation().Validate(this);
             return ValidationResult.IsValid;
+        }
+    }
+
+    public class AplicarVoucherPedidoValidation : AbstractValidator<AplicarVoucherPedidoCommand>
+    {
+        public AplicarVoucherPedidoValidation()
+        {
+            RuleFor(c => c.ClienteId)
+                .NotEqual(Guid.Empty)
+                .WithMessage("Id do cliente inválido");
+
+            RuleFor(c => c.CodigoVoucher)
+                .NotEmpty()
+                .WithMessage("O código do voucher não pode ser vazio");
         }
     }
 }

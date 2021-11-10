@@ -1,6 +1,6 @@
-﻿using NerdStore.Core.DomainObjects.DTO;
-using System;
+﻿using System;
 using System.Threading.Tasks;
+using NerdStore.Core.DomainObjects.DTO;
 
 namespace NerdStore.Catalogo.Domain
 {

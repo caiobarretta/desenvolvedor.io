@@ -1,17 +1,15 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using System;
+using System.Threading.Tasks;
+using Microsoft.AspNetCore.Mvc;
 using NerdStore.Catalogo.Application.Services;
 using NerdStore.Catalogo.Application.ViewModels;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace NerdStore.WebApp.MVC.Controllers.Admin
 {
     public class AdminProdutosController : Controller
     {
         private readonly IProdutoAppService _produtoAppService;
+
         public AdminProdutosController(IProdutoAppService produtoAppService)
         {
             _produtoAppService = produtoAppService;
@@ -34,10 +32,10 @@ namespace NerdStore.WebApp.MVC.Controllers.Admin
         [HttpPost]
         public async Task<IActionResult> NovoProduto(ProdutoViewModel produtoViewModel)
         {
-            if (!ModelState.IsValid) return View(await PopularCategorias(new ProdutoViewModel()));
-            
+            if (!ModelState.IsValid) return View(await PopularCategorias(produtoViewModel));
+
             await _produtoAppService.AdicionarProduto(produtoViewModel);
-            
+
             return RedirectToAction("Index");
         }
 
@@ -47,7 +45,6 @@ namespace NerdStore.WebApp.MVC.Controllers.Admin
         {
             return View(await PopularCategorias(await _produtoAppService.ObterPorId(id)));
         }
-
 
         [HttpPost]
         [Route("editar-produto")]
@@ -64,22 +61,25 @@ namespace NerdStore.WebApp.MVC.Controllers.Admin
             return RedirectToAction("Index");
         }
 
-
         [HttpGet]
-        [Route("produto-atualizar-estoque")]
+        [Route("produtos-atualizar-estoque")]
         public async Task<IActionResult> AtualizarEstoque(Guid id)
         {
             return View("Estoque", await _produtoAppService.ObterPorId(id));
         }
 
         [HttpPost]
-        [Route("produto-atualizar-estoque")]
+        [Route("produtos-atualizar-estoque")]
         public async Task<IActionResult> AtualizarEstoque(Guid id, int quantidade)
         {
             if (quantidade > 0)
+            {
                 await _produtoAppService.ReporEstoque(id, quantidade);
+            }
             else
+            {
                 await _produtoAppService.DebitarEstoque(id, quantidade);
+            }
 
             return View("Index", await _produtoAppService.ObterTodos());
         }
@@ -89,6 +89,5 @@ namespace NerdStore.WebApp.MVC.Controllers.Admin
             produto.Categorias = await _produtoAppService.ObterCategorias();
             return produto;
         }
-
     }
 }

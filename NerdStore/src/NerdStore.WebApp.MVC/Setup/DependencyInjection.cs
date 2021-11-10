@@ -1,4 +1,5 @@
-﻿using MediatR;
+﻿using EventSourcing;
+using MediatR;
 using Microsoft.Extensions.DependencyInjection;
 using NerdStore.Catalogo.Application.Services;
 using NerdStore.Catalogo.Data;
@@ -6,6 +7,7 @@ using NerdStore.Catalogo.Data.Repository;
 using NerdStore.Catalogo.Domain;
 using NerdStore.Catalogo.Domain.Events;
 using NerdStore.Core.Communication.Mediator;
+using NerdStore.Core.Data.EventSourcing;
 using NerdStore.Core.Messages.CommonMessages.IntegrationEvents;
 using NerdStore.Core.Messages.CommonMessages.Notifications;
 using NerdStore.Pagamentos.AntiCorruption;
@@ -31,6 +33,10 @@ namespace NerdStore.WebApp.MVC.Setup
 
             // Notifications
             services.AddScoped<INotificationHandler<DomainNotification>, DomainNotificationHandler>();
+
+            // Event Sourcing
+            services.AddSingleton<IEventStoreService, EventStoreService>();
+            services.AddSingleton<IEventSourcingRepository, EventSourcingRepository>();
 
             // Catalogo
             services.AddScoped<IProdutoRepository, ProdutoRepository>();
@@ -58,8 +64,8 @@ namespace NerdStore.WebApp.MVC.Setup
 
             services.AddScoped<INotificationHandler<PedidoRascunhoIniciadoEvent>, PedidoEventHandler>();
             services.AddScoped<INotificationHandler<PedidoEstoqueRejeitadoEvent>, PedidoEventHandler>();
-            services.AddScoped<INotificationHandler<PagamentoRealizadoEvent>, PedidoEventHandler>();
-            services.AddScoped<INotificationHandler<PagamentoRecusadoEvent>, PedidoEventHandler>();
+            services.AddScoped<INotificationHandler<PedidoPagamentoRealizadoEvent>, PedidoEventHandler>();
+            services.AddScoped<INotificationHandler<PedidoPagamentoRecusadoEvent>, PedidoEventHandler>();
 
             // Pagamento
             services.AddScoped<IPagamentoRepository, PagamentoRepository>();
@@ -70,7 +76,6 @@ namespace NerdStore.WebApp.MVC.Setup
             services.AddScoped<PagamentoContext>();
 
             services.AddScoped<INotificationHandler<PedidoEstoqueConfirmadoEvent>, PagamentoEventHandler>();
-
         }
     }
 }

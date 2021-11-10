@@ -1,4 +1,8 @@
-﻿using MediatR;
+﻿using System.Collections.Generic;
+using System.Linq;
+using System.Threading;
+using System.Threading.Tasks;
+using MediatR;
 using NerdStore.Core.Communication.Mediator;
 using NerdStore.Core.DomainObjects.DTO;
 using NerdStore.Core.Extensions;
@@ -7,29 +11,24 @@ using NerdStore.Core.Messages.CommonMessages.IntegrationEvents;
 using NerdStore.Core.Messages.CommonMessages.Notifications;
 using NerdStore.Vendas.Application.Events;
 using NerdStore.Vendas.Domain;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading;
-using System.Threading.Tasks;
 
 namespace NerdStore.Vendas.Application.Commands
 {
     public class PedidoCommandHandler :
-         IRequestHandler<AdicionarItemPedidoCommand, bool>,
-         IRequestHandler<AtualizarItemPedidoCommand, bool>,
-         IRequestHandler<RemoverItemPedidoCommand, bool>,
-         IRequestHandler<AplicarVoucherPedidoCommand, bool>,
-         IRequestHandler<IniciarPedidoCommand, bool>,
-         IRequestHandler<FinalizarPedidoCommand, bool>,
-         IRequestHandler<CancelarProcessamentoPedidoEstornarEstoqueCommand, bool>,
-         IRequestHandler<CancelarProcessamentoPedidoCommand, bool>
+        IRequestHandler<AdicionarItemPedidoCommand, bool>,
+        IRequestHandler<AtualizarItemPedidoCommand, bool>,
+        IRequestHandler<RemoverItemPedidoCommand, bool>,
+        IRequestHandler<AplicarVoucherPedidoCommand, bool>,
+        IRequestHandler<IniciarPedidoCommand, bool>,
+        IRequestHandler<FinalizarPedidoCommand, bool>,
+        IRequestHandler<CancelarProcessamentoPedidoEstornarEstoqueCommand, bool>,
+        IRequestHandler<CancelarProcessamentoPedidoCommand, bool>
+        
     {
         private readonly IPedidoRepository _pedidoRepository;
         private readonly IMediatorHandler _mediatorHandler;
 
-        public PedidoCommandHandler(IPedidoRepository pedidoRepository,
+        public PedidoCommandHandler(IPedidoRepository pedidoRepository, 
                                     IMediatorHandler mediatorHandler)
         {
             _pedidoRepository = pedidoRepository;
@@ -50,7 +49,6 @@ namespace NerdStore.Vendas.Application.Commands
 
                 _pedidoRepository.Adicionar(pedido);
                 pedido.AdicionarEvento(new PedidoRascunhoIniciadoEvent(message.ClienteId, message.ProdutoId));
-
             }
             else
             {
@@ -65,8 +63,6 @@ namespace NerdStore.Vendas.Application.Commands
                 {
                     _pedidoRepository.AdicionarItem(pedidoItem);
                 }
-
-                pedido.AdicionarEvento(new PedidoAtualizadoEvent(pedido.ClienteId, pedido.Id, pedido.ValorTotal));
             }
 
             pedido.AdicionarEvento(new PedidoItemAdicionadoEvent(pedido.ClienteId, pedido.Id, message.ProdutoId, message.Nome, message.ValorUnitario, message.Quantidade));
@@ -94,8 +90,6 @@ namespace NerdStore.Vendas.Application.Commands
             }
 
             pedido.AtualizarUnidades(pedidoItem, message.Quantidade);
-
-            pedido.AdicionarEvento(new PedidoAtualizadoEvent(pedido.ClienteId, pedido.Id, pedido.ValorTotal));
             pedido.AdicionarEvento(new PedidoProdutoAtualizadoEvent(message.ClienteId, pedido.Id, message.ProdutoId, message.Quantidade));
 
             _pedidoRepository.AtualizarItem(pedidoItem);
@@ -125,7 +119,6 @@ namespace NerdStore.Vendas.Application.Commands
             }
 
             pedido.RemoverItem(pedidoItem);
-            pedido.AdicionarEvento(new PedidoAtualizadoEvent(pedido.ClienteId, pedido.Id, pedido.ValorTotal));
             pedido.AdicionarEvento(new PedidoProdutoRemovidoEvent(message.ClienteId, pedido.Id, message.ProdutoId));
 
             _pedidoRepository.RemoverItem(pedidoItem);
@@ -165,7 +158,6 @@ namespace NerdStore.Vendas.Application.Commands
                 return false;
             }
 
-            pedido.AdicionarEvento(new PedidoAtualizadoEvent(pedido.ClienteId, pedido.Id, pedido.ValorTotal));
             pedido.AdicionarEvento(new VoucherAplicadoPedidoEvent(message.ClienteId, pedido.Id, voucher.Id));
 
             _pedidoRepository.Atualizar(pedido);
@@ -225,7 +217,7 @@ namespace NerdStore.Vendas.Application.Commands
 
             return await _pedidoRepository.UnitOfWork.Commit();
         }
-
+        
         public async Task<bool> Handle(CancelarProcessamentoPedidoCommand message, CancellationToken cancellationToken)
         {
             var pedido = await _pedidoRepository.ObterPorId(message.PedidoId);
@@ -252,5 +244,6 @@ namespace NerdStore.Vendas.Application.Commands
 
             return false;
         }
+
     }
 }

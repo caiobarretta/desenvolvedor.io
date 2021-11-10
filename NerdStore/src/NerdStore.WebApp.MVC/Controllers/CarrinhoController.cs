@@ -1,4 +1,8 @@
-﻿using MediatR;
+﻿using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Threading.Tasks;
+using MediatR;
 using Microsoft.AspNetCore.Mvc;
 using NerdStore.Catalogo.Application.Services;
 using NerdStore.Core.Communication.Mediator;
@@ -6,11 +10,6 @@ using NerdStore.Core.Messages.CommonMessages.Notifications;
 using NerdStore.Vendas.Application.Commands;
 using NerdStore.Vendas.Application.Queries;
 using NerdStore.Vendas.Application.Queries.ViewModels;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace NerdStore.WebApp.MVC.Controllers
 {
@@ -20,14 +19,14 @@ namespace NerdStore.WebApp.MVC.Controllers
         private readonly IPedidoQueries _pedidoQueries;
         private readonly IMediatorHandler _mediatorHandler;
 
-        public CarrinhoController(INotificationHandler<DomainNotification> notifications, 
+        public CarrinhoController(INotificationHandler<DomainNotification> notifications,
                                   IProdutoAppService produtoAppService, 
-                                  IMediatorHandler mediatorHandler,
+                                  IMediatorHandler mediatorHandler, 
                                   IPedidoQueries pedidoQueries) : base(notifications, mediatorHandler)
         {
             _produtoAppService = produtoAppService;
-            _pedidoQueries = pedidoQueries;
             _mediatorHandler = mediatorHandler;
+            _pedidoQueries = pedidoQueries;
         }
 
         [Route("meu-carrinho")]
@@ -57,10 +56,8 @@ namespace NerdStore.WebApp.MVC.Controllers
                 return RedirectToAction("Index");
             }
 
-
             TempData["Erros"] = ObterMensagensErro();
             return RedirectToAction("ProdutoDetalhe", "Vitrine", new { id });
-
         }
 
         [HttpPost]

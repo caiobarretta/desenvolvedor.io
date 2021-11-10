@@ -1,10 +1,8 @@
-﻿using FluentValidation.Results;
-using NerdStore.Core.DomainObjects;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+using FluentValidation.Results;
+using NerdStore.Core.DomainObjects;
 
 namespace NerdStore.Vendas.Domain
 {

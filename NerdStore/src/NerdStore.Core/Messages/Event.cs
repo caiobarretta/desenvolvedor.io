@@ -1,5 +1,5 @@
-﻿using MediatR;
-using System;
+﻿using System;
+using MediatR;
 
 namespace NerdStore.Core.Messages
 {
@@ -7,7 +7,7 @@ namespace NerdStore.Core.Messages
     {
         public DateTime Timestamp { get; private set; }
 
-        public Event()
+        protected Event()
         {
             Timestamp = DateTime.Now;
         }

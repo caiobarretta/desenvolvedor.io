@@ -1,20 +1,21 @@
-﻿using NerdStore.Vendas.Application.Queries.ViewModels;
-using NerdStore.Vendas.Domain;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text;
 using System.Threading.Tasks;
+using NerdStore.Vendas.Application.Queries.ViewModels;
+using NerdStore.Vendas.Domain;
 
 namespace NerdStore.Vendas.Application.Queries
 {
     public class PedidoQueries : IPedidoQueries
     {
         private readonly IPedidoRepository _pedidoRepository;
+
         public PedidoQueries(IPedidoRepository pedidoRepository)
         {
             _pedidoRepository = pedidoRepository;
         }
+
         public async Task<CarrinhoViewModel> ObterCarrinhoCliente(Guid clienteId)
         {
             var pedido = await _pedidoRepository.ObterPedidoRascunhoPorClienteId(clienteId);
@@ -64,6 +65,7 @@ namespace NerdStore.Vendas.Application.Queries
             {
                 pedidosView.Add(new PedidoViewModel
                 {
+                    Id = pedido.Id,
                     ValorTotal = pedido.ValorTotal,
                     PedidoStatus = (int)pedido.PedidoStatus,
                     Codigo = pedido.Codigo,
